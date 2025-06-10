@@ -9,26 +9,34 @@ public class Connection {
         this.distance = getDistanceInKm(city1, city2);
     }
 
-    //DISCUSS Explain this funky calculation
+    //DISCUSS Explain this funny calculation
+
 
     double getDistanceInKm(City city1, City city2) {
         double lat1 = city1.getLatitude();
         double lon1 = city1.getLongitude();
         double lat2 = city2.getLatitude();
         double lon2 = city2.getLongitude();
-        double earthRadiusKm = 6371;
-        double dLat = degreesToRadians(lat2-lat1);
+        double earthRadiusKm = 6371;                         //Haversine formula constant
+        double dLat = degreesToRadians(lat2-lat1);           //Calc difference in latitude and longitude
         double dLon = degreesToRadians(lon2-lon1);
-        lat1 = degreesToRadians(lat1);
+        lat1 = degreesToRadians(lat1);                        //calls the former and saves the difference from degrees to radians
         lat2 = degreesToRadians(lat2);
-        double a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) *
-                Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+
+        //Haversine formula: d = 2 * R * asin(sqrt(a))
+        double a = Math.sin(dLat/2)
+                * Math.sin(dLat/2)
+                + Math.sin(dLon/2)
+                * Math.sin(dLon/2)
+                * Math.cos(lat1)
+                * Math.cos(lat2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
         return earthRadiusKm * c;
     }
     private double degreesToRadians(double degrees) {
         return degrees * Math.PI / 180;
-    }
+    } // Helper Function
 
     // FIXME FIXED
     public City getOtherCity(City thisOne) {

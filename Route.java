@@ -27,7 +27,7 @@ public class Route {
     }
 
 
-    //DISCUSS any simpler way?
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
